@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import FirebaseConfig from "../FirebaseConfig/FirebaseConfig";
 import { ref, get, set, update, remove, child } from "firebase/database";
 import "./FirebaseCrud.css";
@@ -12,6 +12,15 @@ export const FirebaseCrud = () => {
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [dob, setDob] = useState<Date>();
+
+  // useEffect(() => {
+  //   const dbref = ref(database);
+  //   get(child(dbref, "students"))
+  //     .then((data) => {
+  //       console.log(data.val());
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   const isNullOrWhiteSpaces = useCallback((value: any) => {
     const val = value.toString();
