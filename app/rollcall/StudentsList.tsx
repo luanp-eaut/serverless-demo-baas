@@ -8,7 +8,7 @@ type Props = {
 
 export default function StudentsList({ students, current, select }: Props) {
   return (
-    <div className="h-full w-1/5 bg-slate-500 overflow-auto">
+    <div className="h-full w-1/5 bg-slate-200 dark:bg-slate-950 overflow-auto">
       <ul className="w-full flex flex-col items-start px-3 py-2 space-y-1">
         {students.map((s, index) => {
           return (

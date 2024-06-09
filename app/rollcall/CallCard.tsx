@@ -6,7 +6,7 @@ type Props = {
 
 export default function CallCard({ student, rollCall, completed }: Props) {
   return (
-    <div className="flex flex-grow h-full bg-green-200">
+    <div className="flex flex-grow h-full">
       {student && !completed && (
         <div className="flex flex-col space-y-20 m-auto items-center">
           <h1 className="text-7xl font-bold">{student.fullname}</h1>

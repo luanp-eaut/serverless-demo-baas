@@ -11,7 +11,7 @@ interface NavItem {
   page: string;
 }
 
-const NAV_ITEMS: Array<NavItem> = [
+const items: Array<NavItem> = [
   {
     label: "Điểm danh",
     page: "/rollcall",
@@ -19,10 +19,6 @@ const NAV_ITEMS: Array<NavItem> = [
   {
     label: "Bài giảng",
     page: "/lecture",
-  },
-  {
-    label: "Sinh viên",
-    page: "/students",
   },
 ];
 
@@ -51,7 +47,7 @@ export default function Navbar() {
           </Link>
         </div>
         <div className="flex items-center justify-center space-x-5">
-          {NAV_ITEMS.map((item, idx) => {
+          {items.map((item, idx) => {
             return (
               <Link
                 key={idx}
