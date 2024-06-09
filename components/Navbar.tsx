@@ -33,7 +33,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="w-full flex px-4 h-[72px] shadow bg-white dark:bg-stone-900 dark:border-b dark:border-stone-600">
+    <header className="w-full flex px-4 min-h-[72px] shadow bg-white dark:bg-stone-900 dark:border-b dark:border-stone-600">
       <div className="flex justify-between w-full m-auto">
         <div className="flex items-center justify-between">
           <Link href="/">

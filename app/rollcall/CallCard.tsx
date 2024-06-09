@@ -26,14 +26,7 @@ export default function CallCard({ student, rollCall, completed }: Props) {
           </div>
         </div>
       )}
-      {completed && (
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-[200px]  m-auto"
-          onClick={() => rollCall(true)}
-        >
-          Hoàn thành
-        </button>
-      )}
+      {completed && <h1 className="text-7xl font-bold m-auto">Hoàn thành</h1>}
     </div>
   );
 }
