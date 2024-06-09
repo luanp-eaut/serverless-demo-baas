@@ -1,26 +1,14 @@
-"use client";
-
 import { useCallback, useEffect, useState } from "react";
-import FirebaseConfig from "../../firebase/FirebaseConfig";
 import { ref, get, set, update, remove, child } from "firebase/database";
-import "./FirebaseCrud.css";
+import FirebaseConfig from "./FirebaseConfig";
 
 const database = FirebaseConfig();
 
-export const FirebaseCrud = () => {
+export const useFireBase = () => {
   const [userName, setUserName] = useState("");
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [dob, setDob] = useState<Date>();
-
-  // useEffect(() => {
-  //   const dbref = ref(database);
-  //   get(child(dbref, "students"))
-  //     .then((data) => {
-  //       console.log(data.val());
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
 
   const isNullOrWhiteSpaces = useCallback((value: any) => {
     const val = value.toString();
@@ -139,40 +127,5 @@ export const FirebaseCrud = () => {
       });
   }, [isNullOrWhiteSpaces, userName]);
 
-  return (
-    <>
-      <label>User Name</label>
-      <input
-        type="text"
-        value={userName}
-        onChange={(e) => setUserName(e.target.value)}
-      />
-      <br />
-      <label>Full Name</label>
-      <input
-        type="text"
-        value={fullName}
-        onChange={(e) => setFullName(e.target.value)}
-      />
-      <br />
-      <label>Phone Number</label>
-      <input
-        type="text"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-      />
-      <br />
-      <label>Date of Birth</label>
-      <input
-        type="date"
-        value={dob?.toDateString()}
-        onChange={(e) => setDob(new Date(e.target.value))}
-      />
-      <br />
-      <button onClick={insertData}>Insert Data</button>
-      <button onClick={updateData}>Update Data</button>
-      <button onClick={deleteData}>Delete Data</button>
-      <button onClick={selectData}>Select Data</button>
-    </>
-  );
+  return { insertData, updateData, deleteData, selectData };
 };
