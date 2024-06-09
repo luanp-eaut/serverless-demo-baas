@@ -12,11 +12,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head />
-      <body className="dark:bg-stone-900">
+      <body className="dark:bg-stone-900 bg-slate-50">
         <ThemeProvider enableSystem={true} attribute="class">
-          <Navbar />
-          {children}
-          <Footer />
+          <div className="h-screen w-full flex flex-col justify-between overflow-hidden">
+            <Navbar />
+            <div className="flex-grow justify-center overflow-auto">
+              {children}
+            </div>
+            <Footer />
+          </div>
         </ThemeProvider>
       </body>
     </html>
