@@ -1,21 +1,70 @@
+"use client";
+
+import FirebaseConfig from "@/firebase/FirebaseConfig";
+import CallCard from "./CallCard";
+import StudentsList from "./StudentsList";
+import { ref, get, set, update, remove, child } from "firebase/database";
+import { useCallback, useEffect, useState } from "react";
+
+const database = FirebaseConfig();
+
 export default function RollcallPage() {
+  const [students, setStudents] = useState<Student[]>([]);
+  const [current, setCurrent] = useState<Student>();
+  const [completed, setCompleted] = useState(false);
+
+  const handleRollCall = useCallback(
+    (presence: boolean) => {
+      if (!current) return;
+      setStudents((list) =>
+        list.map((s) => (s.id === current.id ? { ...s, presence } : s))
+      );
+      const next = students.find((s) => s.id === current.id + 1);
+      if (!next) setCompleted(true);
+      else setCurrent(next);
+    },
+    [current, students]
+  );
+
+  const handleSelect = useCallback(
+    (s: Student) => {
+      setCurrent(s);
+      if (completed) setCompleted(false);
+    },
+    [completed]
+  );
+
+  useEffect(() => {
+    const dbref = ref(database);
+    get(child(dbref, "students"))
+      .then((snapshot) => {
+        const result = snapshot.val();
+        const data = result.map(
+          (v: Omit<Student, "id" | "presence">, i: number) => {
+            return { id: i, ...v, presence: true };
+          }
+        );
+        setStudents(data);
+        setCurrent(data[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Error occured while getting data!");
+      });
+  }, []);
+
   return (
-    <main className="mx-auto max-w-3xl px-4 sm:px-6 md:max-w-5xl ">
-      <div className="flex flex-col text-center items-center justify-center animate-fadeIn animation-delay-2 my-10 py-16 sm:py-32 md:py-48 md:flex-row md:space-x-4 md:text-left">
-        <div className="flex flex-col space-y-10">
-          <h1 className="text-4xl font-bold mt-6 md:mt-0 md:text-7xl">
-            Nguyễn Văn An
-          </h1>
-          <div className="flex space-x-2 w-full">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/2">
-              Có
-            </button>
-            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded w-1/2">
-              Không
-            </button>
-          </div>
-        </div>
-      </div>
+    <main className="w-full h-full flex space-x-1 text-center items-center justify-center animate-fadeIn animation-delay-2">
+      <StudentsList
+        students={students}
+        current={current}
+        select={handleSelect}
+      />
+      <CallCard
+        student={current}
+        rollCall={handleRollCall}
+        completed={completed}
+      />
     </main>
   );
 }

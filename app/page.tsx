@@ -1,7 +1,7 @@
 export default function Home() {
   return (
-    <div className="h-full flex flex-col">
+    <main className="flex flex-col text-center items-center justify-center animate-fadeIn animation-delay-2 h-full">
       <h1 className="text-7xl font-bold m-auto">Serverless Computing Demo</h1>
-    </div>
+    </main>
   );
 }

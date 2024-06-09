@@ -16,8 +16,8 @@ export default function RootLayout({
         <ThemeProvider enableSystem={true} attribute="class">
           <div className="h-screen w-full flex flex-col justify-between overflow-hidden">
             <Navbar />
-            <div className="flex-grow justify-center overflow-auto">
-              {children}
+            <div className="flex flex-grow justify-center overflow-hidden w-full">
+              <div className="m-auto w-full h-full">{children}</div>
             </div>
             <Footer />
           </div>
