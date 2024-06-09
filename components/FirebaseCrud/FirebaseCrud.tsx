@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import FirebaseConfig from "../FirebaseConfig/FirebaseConfig";
+import FirebaseConfig from "../../firebase/FirebaseConfig";
 import { ref, get, set, update, remove, child } from "firebase/database";
 import "./FirebaseCrud.css";
 
