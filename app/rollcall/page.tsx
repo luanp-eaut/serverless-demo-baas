@@ -1,17 +1,15 @@
 "use client";
 
-import FirebaseConfig from "@/firebase/FirebaseConfig";
 import CallCard from "./CallCard";
 import StudentsList from "./StudentsList";
-import { ref, get, set, update, remove, child } from "firebase/database";
-import { useCallback, useEffect, useState } from "react";
-
-const database = FirebaseConfig();
+import { useCallback, useState } from "react";
+import { useStudents } from "./useStudents";
 
 export default function RollcallPage() {
-  const [students, setStudents] = useState<Student[]>([]);
   const [current, setCurrent] = useState<Student>();
   const [completed, setCompleted] = useState(false);
+
+  const { students, setStudents, updateStudent } = useStudents();
 
   const handleRollCall = useCallback(
     (presence: boolean) => {
@@ -23,7 +21,7 @@ export default function RollcallPage() {
       if (!next) setCompleted(true);
       else setCurrent(next);
     },
-    [current, students]
+    [current, setStudents, students]
   );
 
   const handleSelect = useCallback(
@@ -33,25 +31,6 @@ export default function RollcallPage() {
     },
     [completed]
   );
-
-  useEffect(() => {
-    const dbref = ref(database);
-    get(child(dbref, "students"))
-      .then((snapshot) => {
-        const result = snapshot.val();
-        const data = result.map(
-          (v: Omit<Student, "id" | "presence">, i: number) => {
-            return { id: i, ...v, presence: true };
-          }
-        );
-        setStudents(data);
-        setCurrent(data[0]);
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("Error occured while getting data!");
-      });
-  }, []);
 
   return (
     <main className="w-full h-full flex space-x-1 text-center items-center justify-center animate-fadeIn animation-delay-2">
