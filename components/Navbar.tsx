@@ -20,6 +20,10 @@ const items: Array<NavItem> = [
     label: "Bài giảng",
     page: "/lecture",
   },
+  {
+    label: "Bài tập",
+    page: "/lab",
+  },
 ];
 
 export default function Navbar() {
