@@ -14,6 +14,7 @@ import {
   pageNavigationPlugin,
   RenderGoToPageProps,
 } from "@react-pdf-viewer/page-navigation";
+import { useLectures } from "./useLectures";
 
 const disableScrollPlugin = (): Plugin => {
   const renderViewer = (props: RenderViewer) => {
@@ -35,6 +36,10 @@ export default function LecturePage() {
   const pageNavigationPluginInstance = pageNavigationPlugin();
   const { GoToPreviousPage, GoToNextPage } = pageNavigationPluginInstance;
   const disableScrollPluginInstance = disableScrollPlugin();
+
+  const { lecture } = useLectures();
+
+  console.log("lecture is: ", lecture);
 
   return (
     <main className="w-full h-full flex space-x-1 text-center items-center justify-center animate-fadeIn animation-delay-2">
@@ -58,14 +63,17 @@ export default function LecturePage() {
               )}
             </GoToNextPage>
           </div>
-          <Viewer
-            fileUrl="/lecture.pdf"
-            defaultScale={SpecialZoomLevel.PageFit}
-            plugins={[
-              pageNavigationPluginInstance,
-              disableScrollPluginInstance,
-            ]}
-          />
+
+          {lecture && (
+            <Viewer
+              fileUrl={lecture}
+              defaultScale={SpecialZoomLevel.PageFit}
+              plugins={[
+                pageNavigationPluginInstance,
+                disableScrollPluginInstance,
+              ]}
+            />
+          )}
         </div>
       </Worker>
     </main>

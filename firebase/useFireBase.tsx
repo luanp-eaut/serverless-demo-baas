@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { ref, get, set, update, remove, child } from "firebase/database";
-import FirebaseConfig from "./FirebaseConfig";
-
-const database = FirebaseConfig();
+import { firebaseDb } from "./FirebaseConfig";
 
 export const useFireBase = () => {
   const [userName, setUserName] = useState("");
@@ -26,13 +24,13 @@ export const useFireBase = () => {
       return;
     }
 
-    const dbref = ref(database);
+    const dbref = ref(firebaseDb);
     get(child(dbref, `Customer/${userName}`))
       .then((snapshot) => {
         if (snapshot.exists()) {
           alert("username already exists!");
         } else {
-          set(ref(database, `Customer/${userName}`), {
+          set(ref(firebaseDb, `Customer/${userName}`), {
             fullname: fullName,
             phonenumber: phone,
             dateofbirth: dob,
@@ -51,11 +49,11 @@ export const useFireBase = () => {
       return;
     }
 
-    const dbref = ref(database);
+    const dbref = ref(firebaseDb);
     get(child(dbref, `Customer/${userName}`))
       .then((snapshot) => {
         if (snapshot.exists()) {
-          update(ref(database, `Customer/${userName}`), {
+          update(ref(firebaseDb, `Customer/${userName}`), {
             fullname: fullName,
             phonenumber: phone,
             dateofbirth: dob,
@@ -82,11 +80,11 @@ export const useFireBase = () => {
       return;
     }
 
-    const dbref = ref(database);
+    const dbref = ref(firebaseDb);
     get(child(dbref, `Customer/${userName}`))
       .then((snapshot) => {
         if (snapshot.exists()) {
-          remove(ref(database, `Customer/${userName}`))
+          remove(ref(firebaseDb, `Customer/${userName}`))
             .then(() => {
               alert("delete user successfully");
             })
@@ -109,7 +107,7 @@ export const useFireBase = () => {
       return;
     }
 
-    const dbref = ref(database);
+    const dbref = ref(firebaseDb);
     get(child(dbref, `Customer/${userName}`))
       .then((snapshot) => {
         if (snapshot.exists()) {

@@ -1,13 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
-import { ref, get, set, update, remove, child } from "firebase/database";
-import FirebaseConfig from "@/firebase/FirebaseConfig";
-const database = FirebaseConfig();
+import { ref, get, update, child } from "firebase/database";
+import { firebaseDb } from "@/firebase/FirebaseConfig";
 
 export const useStudents = () => {
   const [students, setStudents] = useState<Student[]>([]);
 
   const getStudents = useCallback(() => {
-    const dbref = ref(database);
+    const dbref = ref(firebaseDb);
     get(child(dbref, "students"))
       .then((snapshot) => {
         const result = snapshot.val();
@@ -25,12 +24,12 @@ export const useStudents = () => {
   }, []);
 
   const updateStudent = useCallback((student: Student) => {
-    const dbref = ref(database);
+    const dbref = ref(firebaseDb);
     const record = `students/${student.id}`;
     get(child(dbref, record))
       .then((snapshot) => {
         if (snapshot.exists()) {
-          update(ref(database, record), student)
+          update(ref(firebaseDb, record), student)
             .then(() => {
               alert("update student successfully");
             })
