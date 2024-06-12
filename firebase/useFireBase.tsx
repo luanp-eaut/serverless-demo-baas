@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { ref, get, set, update, remove, child } from "firebase/database";
-import { firebaseDb } from "./FirebaseConfig";
+import { firebaseDb } from "./config";
 
 export const useFireBase = () => {
   const [userName, setUserName] = useState("");

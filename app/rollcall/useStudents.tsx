@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { ref, get, update, child } from "firebase/database";
-import { firebaseDb } from "@/firebase/FirebaseConfig";
+import { firebaseDb } from "@/firebase/config";
 
 export const useStudents = () => {
   const [students, setStudents] = useState<Student[]>([]);

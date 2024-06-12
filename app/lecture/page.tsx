@@ -39,8 +39,6 @@ export default function LecturePage() {
 
   const { lecture } = useLectures();
 
-  console.log("lecture is: ", lecture);
-
   return (
     <main className="w-full h-full flex space-x-1 text-center items-center justify-center animate-fadeIn animation-delay-2">
       <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">

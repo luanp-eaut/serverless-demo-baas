@@ -5,32 +5,35 @@ import { useTheme } from "next-themes";
 import { RiMoonFill, RiSunLine } from "react-icons/ri";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { items } from "@/lib/constants";
+import { useAuth } from "@/context/AuthContext";
+import { signInWithGoogle, signOutWithGoogle } from "@/firebase/authWithGoogle";
 
-interface NavItem {
-  label: string;
-  page: string;
-}
+type NavBarProps = {
+  session: string | null;
+  createSession: (uid: string) => Promise<void>;
+  removeSession: () => Promise<void>;
+};
 
-const items: Array<NavItem> = [
-  {
-    label: "Điểm danh",
-    page: "/rollcall",
-  },
-  {
-    label: "Bài giảng",
-    page: "/lecture",
-  },
-  {
-    label: "Bài tập",
-    page: "/lab",
-  },
-];
-
-export default function Navbar() {
+export default function Navbar({ createSession, removeSession }: NavBarProps) {
   const { systemTheme, theme, setTheme } = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;
 
+  const { user } = useAuth();
+
   const pathname = usePathname();
+
+  const handleSignIn = async () => {
+    const userUid = await signInWithGoogle();
+    if (userUid) {
+      await createSession(userUid);
+    }
+  };
+
+  const handleSignOut = async () => {
+    await signOutWithGoogle();
+    await removeSession();
+  };
 
   return (
     <header className="w-full flex px-4 min-h-[72px] shadow bg-white dark:bg-stone-900 dark:border-b dark:border-stone-600">
@@ -40,7 +43,7 @@ export default function Navbar() {
             <div className="container flex items-center space-x-2">
               <img
                 src="eaut-logo.png"
-                alt="Trường Đại học Công nghệ Đông As"
+                alt="Trường Đại học Công nghệ Đông Á"
                 className="h-[45px]"
               />
               <div className="flex flex-col items-center font-bold">
@@ -64,6 +67,11 @@ export default function Navbar() {
               </Link>
             );
           })}
+          {user ? (
+            <button onClick={handleSignOut}>Logout</button>
+          ) : (
+            <button onClick={handleSignIn}>Login</button>
+          )}
           {currentTheme === "dark" ? (
             <button
               onClick={() => setTheme("light")}
