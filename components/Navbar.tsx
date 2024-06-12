@@ -35,6 +35,8 @@ export default function Navbar({ createSession, removeSession }: NavBarProps) {
     await removeSession();
   };
 
+  document.cookie = "key=value; SameSite=Lax; Secure";
+
   return (
     <header className="w-full flex px-4 min-h-[72px] shadow bg-white dark:bg-stone-900 dark:border-b dark:border-stone-600">
       <div className="flex justify-between w-full m-auto items-center">
