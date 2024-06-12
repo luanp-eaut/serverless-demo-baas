@@ -37,7 +37,7 @@ export default function Navbar({ createSession, removeSession }: NavBarProps) {
 
   return (
     <header className="w-full flex px-4 min-h-[72px] shadow bg-white dark:bg-stone-900 dark:border-b dark:border-stone-600">
-      <div className="flex justify-between w-full m-auto">
+      <div className="flex justify-between w-full m-auto items-center">
         <div className="flex items-center justify-between">
           <Link href="/">
             <div className="container flex items-center space-x-2">
@@ -53,6 +53,7 @@ export default function Navbar({ createSession, removeSession }: NavBarProps) {
             </div>
           </Link>
         </div>
+        {user && <h3 className="font-bold text-lg">{user?.displayName}</h3>}
         <div className="flex items-center justify-center space-x-5">
           {items.map((item, idx) => {
             return (
