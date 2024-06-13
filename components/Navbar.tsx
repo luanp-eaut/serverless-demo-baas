@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useTheme } from "next-themes";
 import { RiMoonFill, RiSunLine } from "react-icons/ri";
 import Link from "next/link";
@@ -34,7 +34,9 @@ export default function Navbar({ createSession, removeSession }: NavBarProps) {
     await removeSession();
   };
 
-  document.cookie = "key=value; SameSite=Lax; Secure";
+  useEffect(() => {
+    if (document) document.cookie = "key=value; SameSite=Lax; Secure";
+  }, []);
 
   return (
     <header className="w-full flex px-4 min-h-[72px] shadow bg-white dark:bg-stone-900 dark:border-b dark:border-stone-600">
