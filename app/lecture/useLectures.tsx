@@ -1,4 +1,4 @@
-import { firebaseStorage } from "@/firebase/config";
+import { firebaseStorage } from "@/lib/firebaseConfig";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { useEffect, useState } from "react";
 

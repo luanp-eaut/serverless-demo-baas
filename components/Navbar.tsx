@@ -7,7 +7,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { items } from "@/lib/constants";
 import { useAuth } from "@/context/AuthContext";
-import { signInWithGoogle, signOutWithGoogle } from "@/firebase/authWithGoogle";
 
 type NavBarProps = {
   session: string | null;
@@ -19,19 +18,19 @@ export default function Navbar({ createSession, removeSession }: NavBarProps) {
   const { systemTheme, theme, setTheme } = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;
 
-  const { user } = useAuth();
+  const { user, login, logout } = useAuth();
 
   const pathname = usePathname();
 
   const handleSignIn = async () => {
-    const userUid = await signInWithGoogle();
+    const userUid = await login();
     if (userUid) {
       await createSession(userUid);
     }
   };
 
   const handleSignOut = async () => {
-    await signOutWithGoogle();
+    await logout();
     await removeSession();
   };
 
