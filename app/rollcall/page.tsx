@@ -1,9 +1,9 @@
 "use client";
 
 import CallCard from "./CallCard";
-import StudentsList from "./StudentsList";
+import StudentsList from "../../components/StudentsList";
 import { useCallback, useState } from "react";
-import { useStudents } from "./useStudents";
+import { useStudents } from "../../components/hooks/useStudents";
 
 export default function RollcallPage() {
   const [current, setCurrent] = useState<Student>();

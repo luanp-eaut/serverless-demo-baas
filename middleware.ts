@@ -2,11 +2,12 @@ import { type NextRequest, NextResponse } from "next/server";
 import {
   ROLL_CALL_ROUTE,
   LECTURE_ROUTE,
+  LAB_ROUTE,
   ROOT_ROUTE,
   SESSION_COOKIE_NAME,
 } from "./lib/constants";
 
-const protectedRoutes = [ROLL_CALL_ROUTE, LECTURE_ROUTE];
+const protectedRoutes = [ROLL_CALL_ROUTE, LECTURE_ROUTE, LAB_ROUTE];
 
 export default function middleware(request: NextRequest) {
   const session = request.cookies.get(SESSION_COOKIE_NAME)?.value || "";

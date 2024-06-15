@@ -11,7 +11,7 @@ import {
 } from "@/lib/constants";
 import Navbar from "@/components/Navbar";
 import { redirect } from "next/navigation";
-import { AuthProvider } from "@/context/AuthContext";
+import { AuthProvider } from "@/components/context/AuthContext";
 
 export default function RootLayout({
   children,
@@ -39,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head />
-      <body className="dark:bg-stone-900 bg-slate-50">
+      <body className="dark:bg-stone-900">
         <ThemeProvider enableSystem={true} attribute="class">
           <AuthProvider>
             <div className="h-screen w-full flex flex-col justify-between overflow-hidden">

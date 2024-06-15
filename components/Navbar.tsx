@@ -6,7 +6,7 @@ import { RiMoonFill, RiSunLine } from "react-icons/ri";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { items } from "@/lib/constants";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/components/context/AuthContext";
 
 type NavBarProps = {
   session: string | null;
