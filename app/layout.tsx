@@ -39,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head />
-      <body className="dark:bg-stone-900">
+      <body className="dark:bg-stone-900 min-w-[900px]">
         <ThemeProvider enableSystem={true} attribute="class">
           <AuthProvider>
             <div className="h-screen w-full flex flex-col justify-between overflow-hidden">
