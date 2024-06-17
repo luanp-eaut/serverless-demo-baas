@@ -1,14 +1,8 @@
-// "use server";
-
 import "../styles/globals.css";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "next-themes";
 import { cookies } from "next/headers";
-import {
-  SESSION_COOKIE_NAME,
-  ROLL_CALL_ROUTE,
-  ROOT_ROUTE,
-} from "@/lib/constants";
+import { SESSION_COOKIE_NAME, ROOT_ROUTE } from "@/lib/constants";
 import Navbar from "@/components/Navbar";
 import { redirect } from "next/navigation";
 import { AuthProvider } from "@/components/context/AuthContext";
