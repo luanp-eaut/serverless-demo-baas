@@ -1,3 +1,5 @@
+import QRCode from "react-qr-code";
+
 type Props = {
   student?: Student;
   rollCall: (presence: boolean) => void;
@@ -27,6 +29,16 @@ export default function CallCard({ student, rollCall, completed }: Props) {
         </div>
       )}
       {completed && <h1 className="text-7xl font-bold m-auto">Hoàn thành</h1>}
+      {!student && (
+        <div className="flex m-auto">
+          <QRCode
+            size={256}
+            style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+            value={"Scan me to make a rollcall"}
+            viewBox={`0 0 256 256`}
+          />
+        </div>
+      )}
     </div>
   );
 }
